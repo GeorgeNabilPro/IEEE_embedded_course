@@ -2,20 +2,29 @@
 #include <math.h>
 #include <stdio.h>
 
+char func(int, double);
+int * some_func();
 int main() {
     double variable = 49.235;
+    char arr[3] = {'a', 'b', 'c'};
     int * p = &variable ;   // get the address of the variable and soter it in a pointer p
                             // pointers have values of addresses in hexadecimal
     int pp = &variable ;
 
-    int * null_p = NULL;    // null pointer will always point to address 0
-    void * void_p = NULL;   // void pointer, (a C generic pointer) stores an address of any variable. 
-    int * wild_p;           // wild pointer, stores a random address (is not preffered to be used)
-                            // dangling pointer, 
-                            // complex pointer, 
-                            // near pointer, 
-                            // far pointer, 
+    int *null_p = NULL;     // null pointer will always point to address 0.
+    void *void_p = NULL;    // void pointer, (a C generic pointer) stores an address of any variable. 
+    int *wild_p;            // wild pointer, stores a random address (is not preffered to be used).
+    int *const const_p = &variable;        // const pointer, can't be changed, but data can, must be initialized when it's defined.
+    const int *p_const = &variable;        // pointer to const data, data can't be change via *p_const.
+    const int *const_p_const = &variable;  // const pointer to const data, like the two above pointers comined.
+    int *arr_p[3];          // array of pointers, you fill it with pointers to elements of an array to pass it to some function by refernce.   
+    int **p2p = &p;         // pointer to pointer.            
+    char (*func_p) (int, double) = func;   // pointer to function.    
+    int *dangling_p = some_func();         // dangling pointer 
+    // int near *p = &variable;            // near pointer, works with data in a 64kb segement of memeory,
+    // int far *p = &variable;             // far pointer, 
                             // huge pointer, 
+    
     *p = 45.12;             // accessing the value of the address of this pointer
 
     int arr[5]={1,2,3,4,5}; // 
@@ -50,4 +59,14 @@ int main() {
     //     printf("###");
     // }
 
+}
+
+
+char func(int a, double b) {
+    return 'c';
+}
+
+int *some_func () {
+    int x = 5;
+    return &x;
 }
